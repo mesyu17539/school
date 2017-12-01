@@ -7,4 +7,7 @@ public interface StudentService {// 인터페이스는 오픈하는 코드
 	public void addScore(StudentBean score);
 	public StudentBean login(StudentBean studentBean);
 	public StudentBean find(String id);//로그인 한 후이니까 이거만 필요하다
+	public int getCount();
+	public void setCount(int num);
+	public StudentBean[] list();
 }
