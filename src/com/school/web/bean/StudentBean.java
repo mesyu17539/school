@@ -4,6 +4,10 @@ public class StudentBean {
 	private int kor,eng,math;
 	private String id,pass,name;
 	
+	public String toString() {
+		return String.format("[ID] %s [PASS] : %s [NAME] : %s", id, pass, name);
+		
+	}
 	public void setId(String id) {
 		this.id=id;
 	}

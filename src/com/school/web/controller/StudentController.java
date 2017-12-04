@@ -15,7 +15,7 @@ public class StudentController {
 //				StudentBean student = new StudentBean(); 왜 그런걸까
 		while (true) {
 			System.out.println("[학생메뉴] [0] 종료 [1] 학생등록 [2] 성적등록 [3] 총 학생수"
-					+ "[4] 학생 이름 리스트");
+					+ "[4] 학생 이름 리스트 [5] 내정보 보기 [6] 이름 검색 [7] ");
 			switch (scan.nextInt()) {
 			case 0:
 				System.out.println("종료");
@@ -46,6 +46,17 @@ public class StudentController {
 				StudentBean[] students= studentService.list();
 				for(int i=0; i<students.length-1;i++) {
 					System.out.println("리스트들 명 : "+students[i].getName());
+				}
+				break;
+			case 5 :
+				String id=scan.next();
+				System.out.println("학생 개인 지정 정보 열람 "+studentService.findStudentById(id).toString());
+				break;
+			case 6 :
+				String name=scan.next();
+				students=studentService.findStudentByName(name);
+				for(int i=0;i<students.length;i++) {
+					System.out.println("검색 결과 "+students[i].toString());
 				}
 				break;
 			}
