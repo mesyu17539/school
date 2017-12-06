@@ -11,4 +11,6 @@ public interface StudentService {// 인터페이스는 오픈하는 코드
 	public StudentBean[] list();
 	public StudentBean findStudentById(String id);//로그인 한 후이니까 이거만 필요하다
 	public StudentBean[] findStudentByName(String name);
+	public void upDatePass(StudentBean student);
+	public void delDateStudent(String next);
 }

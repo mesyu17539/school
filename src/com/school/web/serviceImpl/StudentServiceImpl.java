@@ -8,13 +8,22 @@ public class StudentServiceImpl implements StudentService {
 	private int count;// 현재 가입된 인원
 	StudentBean[] students;
 
-	public StudentServiceImpl(int count) {
+	public StudentServiceImpl() {
 		this.count = 0;
-		students = new StudentBean[count];
+		students = new StudentBean[3];
 	}
 
 	@Override
 	public void addStudent(StudentBean studentBean) {
+		if(students.length==count) {
+			StudentBean[] studentBeans=new StudentBean[count+3];
+			System.arraycopy(students, 0, studentBeans, 0, count);//객체 새로이 생성
+			students=studentBeans;  //students=new stduentbeans(){}.....와 같은 뜻 포인터 끊기.
+//			StudentBean[] studentBeans=new StudentBean[count];
+//			studentBeans=students;
+//			students=new StudentBean[count+3];
+//			System.arraycopy(studentBeans, 0, students, 0, count);
+		}
 		students[this.count] = studentBean;
 		this.count++;
 	}
@@ -66,11 +75,12 @@ public class StudentServiceImpl implements StudentService {
 		}
 		student = new StudentBean[size];
 		if (size != 0) {
-			for (int i = 0,j = 0; i < count; i++) {
+			for (int i = 0, j = 0; i < count; i++) {
 				if (name.equals(students[i].getName())) {
+					
 					student[j] = students[i];
 					j++;
-					if(j==size) {
+					if (j == size) {
 						break;
 					}
 				}
@@ -78,46 +88,27 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return student;
 	}
+
+	@Override
+	public void upDatePass(StudentBean student) {
+		findStudentById(student.getId()).setPass(student.getPass());
+	}
+
+	@Override
+	public void delDateStudent(String id) {
+		for(int i=0;i<students.length;i++) {
+			if(id.equals(students[i].getId())) {
+				//새로운 students(studentBeans) 에 차례대로 담고
+				for(int j=i;j<count-1;j++) {
+					if(students[j]!=null) {
+						students[j]=students[j+1];
+					}
+				}
+				//배열 카피
+				students[count-1]=null;
+				count--;
+				break;
+			}
+		}
+	}
 }
-// private int num, start;//현재 가입된 인원
-// StudentBean[] students;
-//
-// public StudentServiceImpl() {
-// this.start=0;
-// students= null;
-// }
-//
-// @Override
-// public void addStudent(StudentBean studentBean) {
-// students[start]=studentBean;
-// start++;
-// }
-//
-// @Override
-// public int getNum() {
-// return this.num;
-// }
-//
-// @Override
-// public void setNum(int num) {
-// this.num = num;
-// students= new StudentBean[this.num];
-// System.out.println("setNum 내부 count "+this.num);
-// }
-//
-//
-// public void addScore(StudentBean score) {
-// }
-//
-// @Override
-// public StudentBean login(StudentBean studentBean) {
-// // TODO Auto-generated method stub
-// return null;
-// }
-//
-// @Override
-// public StudentBean find(String id) {
-// // TODO Auto-generated method stub
-// return null;
-// }
-//
